@@ -2,16 +2,19 @@ package com.iiitb.healthcare_abha.Controllers;
 
 import com.iiitb.healthcare_abha.DAO.EmployeeRepository;
 import com.iiitb.healthcare_abha.model.Employee;
+import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-@CrossOrigin(origins = "https://localhost:3000")
-@RestController
+@Data
+@Controller
 @RequestMapping("/api/v1/")
+@CrossOrigin(maxAge = 3600)
 public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
