@@ -3,37 +3,53 @@ package com.iiitb.healthcare_abha.Controllers;
 import com.iiitb.healthcare_abha.DAO.EmployeeRepository;
 import com.iiitb.healthcare_abha.model.Employee;
 import lombok.Data;
+import org.hibernate.query.NativeQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+
 @Data
 @Controller
 @RequestMapping("/api/v1/")
 @CrossOrigin(maxAge = 3600)
 public class EmployeeController {
+
+
+  private SessionFactory sessionFactory;
     @Autowired
     private EmployeeRepository employeeRepository;
     //get all employees
-    @GetMapping("/employees")
+    @GetMapping("/employees/get-all")
     public List<Employee> getAllEmployees()
     {
-        return employeeRepository.findAll();
+
+      Session session=sessionFactory.openSession();
+      session.beginTransaction();
+      String empquery="select * from employee";
+      NativeQuery<Employee> q=session.createNativeQuery(empquery,Employee.class);
+        System.out.println(1234);
+
+        return q.list();
+
     }
 
     //create employee
-    @PostMapping("/employees")
+    @PostMapping("/employees/create")
     public Employee createEmployee(@RequestBody Employee employee)
     {
         return employeeRepository.save(employee);
     }
 
     //get employee by id
-    @GetMapping("/employees/{id}")
+    @GetMapping("/employees/getbyid/{id}")
     public ResponseEntity<Employee> GetEmployeeByTd(@PathVariable Long id)
     {
         Employee employee;
@@ -43,7 +59,7 @@ public class EmployeeController {
 
     }
     //update employee
-    @PutMapping("/employees/{id}")
+    @PutMapping("/employees/add/{id}")
     public ResponseEntity<Employee> updateEmployee(@PathVariable Long id,@RequestBody Employee employeeDetails)
     {
         Employee employee;
@@ -67,7 +83,7 @@ public class EmployeeController {
     }
 
     //delete employee
-    @DeleteMapping("/employees/{id}")
+    @DeleteMapping("/employees/delete/{id}")
     public ResponseEntity<Map<String,Boolean>> deleteEmployee(@PathVariable Long id)
     {
         Employee employee;

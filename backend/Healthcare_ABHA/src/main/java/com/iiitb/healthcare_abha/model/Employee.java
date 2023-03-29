@@ -1,16 +1,12 @@
 package com.iiitb.healthcare_abha.model;
 
 import jakarta.persistence.*;
+import lombok.Data;
+
+@Data
 @Entity
 @Table()
 public class Employee {
-    public long getEid() {
-        return eid;
-    }
-
-    public void setEid(long eid) {
-        this.eid = eid;
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -43,10 +39,12 @@ public class Employee {
     @Column()
     private  String JoiningDate;
 
+    @OneToMany(targetEntity = Doctor.class,cascade = CascadeType.ALL)
     public Employee() {
+
     }
 
-    public Employee(long abhaid,String name, long mobileno, String email, String address, String employeeType, String password, String DOB, int age, String gender, String bloodgroup, String joiningDate) {
+    public Employee(long abhaid,String name, long mobileno, String email, String address, String EmployeeType, String password, String DOB, int age, String gender, String Bloodgroup, String JoiningDate) {
         this.name = name;
         this.abhaid=abhaid;
         this.mobileno = mobileno;
@@ -155,6 +153,13 @@ public class Employee {
 
     public void setJoiningDate(String JoiningDate) {
         this.JoiningDate = JoiningDate;
+    }
+    public long getEid() {
+        return eid;
+    }
+
+    public void setEid(long eid) {
+        this.eid = eid;
     }
 
 

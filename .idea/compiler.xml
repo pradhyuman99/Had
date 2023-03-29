@@ -11,7 +11,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="Healthcare_ABHA" target="17" />
+      <module name="Healthcare_ABHA" target="19" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
